@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="css/register.css">
+    <script src="js/include.js"></script>
+</head>
+
+<body>
+    <div data-include="share/header.html"></div>
+
+    <main class="main-content">
+        <h2 class="page-title">Đăng ký Thành viên</h2>
+
+        <form class="enrollment-form">
+            <div class="form-section">
+                <h3 class="section-title">Thông tin cá nhân</h3>
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label class="form-label required">Tên</label>
+                        <input type="text" class="form-input input_name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label required">Ngày sinh</label>
+                        <input type="date" class="form-input input_dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Giới tính</label>
+                        <select class="form-select input_sex" required>
+                            <option value="" disabled selected>Chọn</option>
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Quốc tịch</label>
+                        <select class="form-select input_country" required>
+                            <option value="" disabled selected>Chọn</option>
+                            <option value="vn">Việt Nam</option>
+                            <option value="us">Hoa Kỳ</option>
+                            <option value="jp">Nhật Bản</option>
+                            <option value="kr">Hàn Quốc</option>
+                            <option value="cn">Trung Quốc</option>
+                            <option value="sg">Singapore</option>
+                            <option value="th">Thái Lan</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="section-title">Thông tin liên hệ</h3>
+
+                <!-- <div class="form-row">
+                    <div class="form-group full-width">
+                        <label class="form-label required">Địa chỉ</label>
+                        <input type="text" class="form-input" required>
+                    </div>
+                </div> -->
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label required">Điện thoại di động</label>
+                        <input type="tel" class="form-input input_tel" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half-width">
+                        <label class="form-label required">Địa chỉ email</label>
+                        <input type="email" class="form-input input_email" required autocomplete="new-password">
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="section-title">Thông tin bảo mật</h3>
+                <div class="form-row">
+                    <div class="form-group half-width">
+                        <label class="form-label required">Mật khẩu</label>
+                        <div class="password-container">
+                            <input type="password" class="form-input input_password" id="password" required
+                                autocomplete="new-password">
+                            <button type="button" class="toggle-password" id="togglePassword">
+                                <span id="eyeIcon">👁️</span>
+                            </button>
+                        </div>
+                        <small>Mật khẩu phải có ít nhất 8 ký tự và bao gồm một số và một ký tự đặc biệt</small>
+                    </div>
+                    <div class="form-group half-width">
+                        <label class="form-label required">Xác nhận mật khẩu</label>
+                        <div class="password-container">
+                            <input type="password" class="form-input" id="confirmPassword" required
+                                autocomplete="new-password">
+                            <button type="button" class="toggle-password" id="toggleConfirmPassword">
+                                <span id="confirmEyeIcon">👁️</span>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button type="submit" class="submit-btn" id="btnRegister">Đăng ký</button>
+            </div>
+        </form>
+    </main>
+
+    <div data-include="share/footer.html"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Xử lý hiện/ẩn cho trường mật khẩu
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('togglePassword');
+            const eyeIcon = document.getElementById('eyeIcon');
+
+            togglePassword.addEventListener('click', function () {
+                // Chuyển đổi giữa hiển thị và ẩn mật khẩu
+                if (passwordInput.type === 'password') {
+                    passwordInput.type = 'text';
+                    eyeIcon.textContent = '👁️‍🗨️'; // Biểu tượng mắt mở
+                } else {
+                    passwordInput.type = 'password';
+                    eyeIcon.textContent = '👁️'; // Biểu tượng mắt đóng
+                }
+            });
+
+            const confirmPasswordInput = document.getElementById('confirmPassword');
+            const toggleConfirmPassword = document.getElementById('toggleConfirmPassword');
+            const confirmEyeIcon = document.getElementById('confirmEyeIcon');
+
+            toggleConfirmPassword.addEventListener('click', function () {
+                // Chuyển đổi giữa hiển thị và ẩn mật khẩu xác nhận
+                if (confirmPasswordInput.type === 'password') {
+                    confirmPasswordInput.type = 'text';
+                    confirmEyeIcon.textContent = '👁️‍🗨️'; // Biểu tượng mắt mở
+                } else {
+                    confirmPasswordInput.type = 'password';
+                    confirmEyeIcon.textContent = '👁️'; // Biểu tượng mắt đóng
+                }
+            });
+        });
+    </script>
+    <script src="js/include.js"></script>
+    <script type="module" src="js/DOM/register.js"></script>
+</body>
+
+</html>
+
+
+
+<!-- <!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng ký</title>
+    <link rel="stylesheet" href="css/register.css">
+    <script src="js/include.js"></script>
+
+</head>
+
+<body>
+    <div data-include="share/header.html"></div>
+
+    <main class="main-content">
+        <h2 class="page-title">Đăng ký Thành viên</h2>
+
+        <form class="enrollment-form">
+            <div class="form-section">
+                <h3 class="section-title">Thông tin cá nhân</h3>
+                <div class="form-row">
+
+                    <div class="form-group">
+                        <label class="form-label required">Tên</label>
+                        <input type="text" class="form-input input_name" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label required">Ngày sinh</label>
+                        <input type="date" class="form-input input_dob" required>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Giới tính</label>
+                        <select class="form-select input_sex" required>
+                            <option value="" disabled selected>Chọn</option>
+                            <option value="male">Nam</option>
+                            <option value="female">Nữ</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label class="form-label required">Quốc tịch</label>
+                        <select class="form-select input_country" required>
+                            <option value="" disabled selected>Chọn</option>
+                            <option value="vn">Việt Nam</option>
+                            <option value="us">Hoa Kỳ</option>
+                            <option value="jp">Nhật Bản</option>
+                            <option value="kr">Hàn Quốc</option>
+                            <option value="cn">Trung Quốc</option>
+                            <option value="sg">Singapore</option>
+                            <option value="th">Thái Lan</option>
+                            <option value="other">Khác</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="section-title">Thông tin liên hệ</h3>
+
+            
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label required">Điện thoại di động</label>
+                        <input type="tel" class="form-input input_tel" required>
+                    </div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group half-width">
+                        <label class="form-label required">Địa chỉ email</label>
+                        <input type="email" class="form-input input_email" required>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-section">
+                <h3 class="section-title">Thông tin bảo mật</h3>
+                <div class="form-row">
+                    <div class="form-group half-width">
+                        <label class="form-label required">Mật khẩu</label>
+                        <input type="password" class="form-input input_password" required>
+                        <small>Mật khẩu phải có ít nhất 8 ký tự và bao gồm một số và một ký tự đặc biệt</small>
+                    </div>
+                    <div class="form-group half-width">
+                        <label class="form-label required">Xác nhận mật khẩu</label>
+                        <input type="password" class="form-input" required>
+                    </div>
+                </div>
+
+            </div>
+            <div style="text-align: center; margin-top: 30px;">
+                <button type="submit" class="submit-btn">Đăng ký</button>
+            </div>
+        </form>
+    </main>
+
+    <div data-include="share/footer.html"></div>
+</body>
+
+</html> -->

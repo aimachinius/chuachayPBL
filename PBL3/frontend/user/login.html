@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Đăng nhập</title>
+    <link rel="stylesheet" href="css/login.css">
+    <script src="js/include.js"></script>
+    <script src="/js/share.js"></script>
+
+</head>
+
+<body>
+    <div data-include="share/header.html"></div>
+
+    <main class="main-content">
+        <div class="login-container">
+            <div class="login-header">
+                <h2>Đăng nhập vào tài khoản </h2>
+            </div>
+            <div class="login-form">
+                <div class="form-group">
+                    <label class="form-label" for="username">Email</label>
+                    <input type="text" class="form-input" id="username" placeholder="Vui lòng nhập thông tin đăng nhập">
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="password">Mật khẩu</label>
+                    <input type="password" class="form-input" id="password" placeholder="Vui lòng nhập mật khẩu">
+                </div>
+                <div class="remember-forgot">
+                    <label class="checkbox-label">
+                        <input type="checkbox" class="checkbox-input">
+                        Ghi nhớ đăng nhập
+                    </label>
+                    <a href="#" class="forgot-link">Quên mật khẩu?</a>
+                </div>
+                <button type="submit" class="login-btn" id="btnLogin">Đăng nhập</button>
+
+                <div class="login-divider">
+                    <span>Hoặc</span>
+                </div>
+
+                <div class="social-login">
+                    <div class="social-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#1877F2">
+                            <path
+                                d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96C18.34 21.21 22 17.06 22 12.06C22 6.53 17.5 2.04 12 2.04Z" />
+                        </svg>
+                    </div>
+                    <div class="social-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#DB4437">
+                            <path
+                                d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM12.31 16.62C9.78 16.62 7.74 14.58 7.74 12.05C7.74 9.52 9.78 7.48 12.31 7.48C13.54 7.48 14.67 7.97 15.5 8.81L14.04 10.27C13.58 9.81 12.98 9.53 12.31 9.53C10.92 9.53 9.79 10.66 9.79 12.05C9.79 13.44 10.92 14.57 12.31 14.57C13.23 14.57 14.06 14.04 14.46 13.22H12.31V11.17H16.48C16.54 11.45 16.57 11.74 16.57 12.05C16.57 14.58 14.83 16.62 12.31 16.62Z" />
+                        </svg>
+                    </div>
+                    <div class="social-btn">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="#000000">
+                            <path
+                                d="M12 2C6.477 2 2 6.477 2 12C2 17.523 6.477 22 12 22C17.523 22 22 17.523 22 12C22 6.477 17.523 2 12 2ZM12.73 17.69C12.73 17.69 11.88 17.76 11 17.76C10.14 17.76 9.27 17.69 9.27 17.69C6.28 17.53 4.11 15.36 3.96 12.37C3.96 11.5 3.89 10.65 3.89 10.65C3.73 7.66 5.91 5.46 8.9 5.28C8.9 5.28 9.76 5.22 10.63 5.22C11.47 5.22 12.34 5.28 12.34 5.28C15.34 5.44 17.52 7.64 17.68 10.63C17.68 10.63 17.74 11.5 17.74 12.34C17.74 13.21 17.68 14.08 17.68 14.08C17.51 16.96 15.62 17.53 12.73 17.69ZM14.69 10.5L12.66 12.31L13.28 14.58L10.72 12.83L8.25 14.58L8.87 12.27L6.8 10.5L9.16 10.39L10.72 8.33L11.84 10.39L14.69 10.5Z" />
+                        </svg>
+                    </div>
+                </div>
+
+                <div class="register-link">
+                    <p>Chưa có tài khoản? <a href="#">Đăng ký ngay</a></p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div data-include="share/footer.html"></div>
+
+    <script src="js/DOM/login.js"></script>
+</body>
+
+</html>

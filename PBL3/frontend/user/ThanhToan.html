@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Thanh Toán Vé Máy Bay</title>
+    <script src="js/include.js"></script>
+    <link rel="stylesheet" href="./css/ThanhToan.css">
+    <style>
+        .success-toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+            padding: 15px 20px;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            transform: translateX(100%);
+            transition: all 0.3s ease;
+        }
+
+        .success-toast.show {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* Thêm CSS cho thông báo lỗi */
+        .error-message {
+            background-color: #fee;
+            border: 1px solid #fcc;
+            color: #c33;
+            padding: 10px;
+            border-radius: 5px;
+            margin: 10px 0;
+            display: none;
+        }
+
+        .form-group.error input,
+        .form-group.error select {
+            border-color: #c33;
+            background-color: #fff5f5;
+        }
+
+        .form-group label.error {
+            color: #c33;
+        }
+    </style>
+</head>
+
+<body>
+    <div data-include="share/header.html"></div>
+
+    <div class="container">
+        <div class="header_div">
+            <div class="logo">SKY TRAVEL</div>
+            <p>Thanh Toán Vé Máy Bay</p>
+        </div>
+
+        <div class="flight-details">
+            <div class="flight-header">
+                <h2>Chi Tiết Chuyến Bay</h2>
+            </div>
+
+            <div id="departure-flight-info" class="flight-info">
+                <h3>Chuyến đi</h3>
+                <div class="city">
+                    <h3 id="departure-city">Hà Nội (HAN)</h3>
+                    <p id="departure-datetime"></p>
+                </div>
+
+                <div class="direction">→</div>
+
+                <div class="city">
+                    <h3 id="arrival-city">Hồ Chí Minh (SGN)</h3>
+                    <p id="arrival-datetime"></p>
+                </div>
+            </div>
+
+            <div id="return-flight-info" class="flight-info" style=" display: none;">
+                <h3>Chuyến về</h3>
+                <div class="city">
+                    <h3 id="return-departure-city">Hồ Chí Minh (SGN)</h3>
+                    <p id="return-departure-datetime">00:45, 25/05/2025</p>
+                </div>
+
+                <div class="direction">→</div>
+
+                <div class="city">
+                    <h3 id="return-arrival-city">Hà Nội (HAN)</h3>
+                    <p id="return-arrival-datetime">02:49, 25/05/2025</p>
+                </div>
+            </div>
+
+            <div class="passenger-info" id="passenger-list">
+                <!-- Thông tin hành khách sẽ được thêm động -->
+            </div>
+        </div>
+
+        <div class="payment-section">
+            <div class="payment-form">
+                <h2>Phương Thức Thanh Toán</h2>
+
+                <div class="payment-tabs">
+                    <div class="payment-tab active" data-tab="card">Thẻ Tín Dụng/Ghi Nợ</div>
+                    <div class="payment-tab" data-tab="banking">Internet Banking</div>
+                </div>
+
+                <div class="tab-content active" id="card-content">
+                    <div id="card-error-message" class="error-message"></div>
+
+                    <div class="payment-methods">
+                        <div class="payment-method active">
+                            <div
+                                style="width: 80px; height: 30px; background: #1a1f71; margin: 0 auto 10px; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                VISA</div>
+                            <p>Visa</p>
+                        </div>
+                        <div class="payment-method">
+                            <div
+                                style="width: 80px; height: 30px; background: #eb001b; margin: 0 auto 10px; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                MC</div>
+                            <p>Mastercard</p>
+                        </div>
+                        <div class="payment-method">
+                            <div
+                                style="width: 80px; height: 30px; background: #0e4c96; margin: 0 auto 10px; border-radius: 5px; display: flex; align-items: center; justify-content: center; color: white; font-weight: bold;">
+                                JCB</div>
+                            <p>JCB</p>
+                        </div>
+                    </div>
+
+                    <div class="form-group" id="cardholder-group">
+                        <label for="cardholder">Tên Chủ Thẻ</label>
+                        <input type="text" id="cardholder" placeholder="Nhập tên đầy đủ">
+                    </div>
+
+                    <div class="form-group card-details">
+                        <div class="card-number" id="cardnumber-group">
+                            <label for="cardnumber">Số Thẻ</label>
+                            <input type="text" id="cardnumber" placeholder="XXXX XXXX XXXX XXXX">
+                        </div>
+
+                        <div class="card-expiry" id="expiry-group">
+                            <label for="expiry">Ngày Hết Hạn</label>
+                            <input type="text" id="expiry" placeholder="MM/YY">
+                        </div>
+
+                        <div class="card-cvv" id="cvv-group">
+                            <label for="cvv">CVV</label>
+                            <input type="text" id="cvv" placeholder="XXX">
+                        </div>
+                    </div>
+
+                    <button id="pay-button">Thanh Toán</button>
+                </div>
+
+                <div class="tab-content" id="banking-content">
+                    <div id="banking-error-message" class="error-message"></div>
+
+                    <div class="form-group" id="bank-group">
+                        <label for="bank">Chọn Ngân Hàng</label>
+                        <select id="bank">
+                            <option value="">-- Chọn ngân hàng --</option>
+                            <option value="vietcombank">Vietcombank</option>
+                            <option value="techcombank">Techcombank</option>
+                            <option value="bidv">BIDV</option>
+                            <option value="vib">VIB</option>
+                            <option value="vpbank">VP Bank</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group" id="account-group">
+                        <label for="account">Số Tài Khoản</label>
+                        <input type="text" id="account" placeholder="Nhập số tài khoản">
+                    </div>
+
+                    <div class="form-group" id="name-group">
+                        <label for="name">Tên Chủ Tài Khoản</label>
+                        <input type="text" id="name" placeholder="Nhập tên chủ tài khoản">
+                    </div>
+
+                    <button id="banking-pay-button">Chuyển Đến Cổng Thanh Toán</button>
+                </div>
+            </div>
+
+            <div class="payment-summary">
+                <h2>Tóm Tắt Thanh Toán</h2>
+
+                <div class="price-details">
+                    <div class="price-item total">
+                        <span>Tổng cộng</span>
+                        <span id="total-price">0 VND</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="success-message" id="success-message">
+            <h2>Thanh Toán Thành Công!</h2>
+            <p>Cảm ơn bạn đã đặt vé. Mã xác nhận đã được gửi tới email của bạn.</p>
+        </div>
+    </div>
+    <script>
+        window.addEventListener('load', () => {
+            createTicketSession();
+        })
+
+        // Hàm để định dạng số tiền
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('vi-VN').format(amount) + ' VND';
+        }
+
+        // Hàm để định dạng ngày giờ
+        function formatDateTime(date, time) {
+            const dateObj = new Date(date + 'T' + time);
+            const day = dateObj.getDate().toString().padStart(2, '0');
+            const month = (dateObj.getMonth() + 1).toString().padStart(2, '0');
+            const year = dateObj.getFullYear();
+            const hours = dateObj.getHours().toString().padStart(2, '0');
+            const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+
+            return `${hours}:${minutes}, ${day}/${month}/${year}`;
+        }
+
+        // Tải dữ liệu khi trang được load
+        document.addEventListener('DOMContentLoaded', function () {
+            loadFlightData();
+        });
+
+        function loadFlightData() {
+            // Lấy dữ liệu từ sessionStorage
+            const customerData = JSON.parse(sessionStorage.getItem('customerData')) || [];
+            const customerSelectedFlight = JSON.parse(sessionStorage.getItem('customerSelectedFlight')) || {};
+            const totalPrice = sessionStorage.getItem('totalPrice') || 0;
+
+            // Hiển thị tổng tiền
+            document.getElementById('total-price').textContent = formatCurrency(totalPrice);
+
+            // Cập nhật thông tin chuyến bay đi
+            if (customerSelectedFlight.departureFlightASeat) {
+                const departureFlight = customerSelectedFlight.departureFlightASeat.flight;
+                const departureSeatStyle = customerSelectedFlight.departureFlightASeat.styleSeat;
+
+                // Cập nhật thông tin chuyến đi
+                document.getElementById('departure-city').textContent =
+                    `${departureFlight.fromLocation.name} (${departureFlight.fromLocation.nameCode})`;
+                document.getElementById('departure-datetime').textContent =
+                    formatDateTime(departureFlight.departureDate, departureFlight.departureTime);
+
+                // Tính toán thời gian đến cho chuyến đi
+                const departureDateTime = new Date(departureFlight.departureDate + 'T' + departureFlight.departureTime);
+                const arrivalDateTime = new Date(departureDateTime.getTime() + departureFlight.durationMinutes * 60000);
+
+                document.getElementById('arrival-city').textContent =
+                    `${departureFlight.toLocation.name} (${departureFlight.toLocation.nameCode})`;
+                document.getElementById('arrival-datetime').textContent = formatDateTime(
+                    arrivalDateTime.toISOString().split('T')[0],
+                    arrivalDateTime.toTimeString().split(' ')[0]
+                );
+            }
+
+            // Cập nhật thông tin chuyến bay về (nếu có)
+            if (customerSelectedFlight.returnFlightASeat) {
+                const returnFlight = customerSelectedFlight.returnFlightASeat.flight;
+                const returnSeatStyle = customerSelectedFlight.returnFlightASeat.styleSeat;
+                document.getElementById('return-flight-info').style.display = 'display';
+                // Hiển thị section chuyến về
+                document.getElementById('return-flight-info').style.display = 'block';
+
+                // Cập nhật thông tin chuyến về
+                document.getElementById('return-departure-city').textContent =
+                    `${returnFlight.fromLocation.name} (${returnFlight.fromLocation.nameCode})`;
+                document.getElementById('return-departure-datetime').textContent =
+                    formatDateTime(returnFlight.departureDate, returnFlight.departureTime);
+
+                // Tính toán thời gian đến cho chuyến về
+                const returnDepartureDateTime = new Date(returnFlight.departureDate + 'T' + returnFlight.departureTime);
+                const returnArrivalDateTime = new Date(returnDepartureDateTime.getTime() + returnFlight.durationMinutes * 60000);
+
+                document.getElementById('return-arrival-city').textContent =
+                    `${returnFlight.toLocation.name} (${returnFlight.toLocation.nameCode})`;
+                document.getElementById('return-arrival-datetime').textContent = formatDateTime(
+                    returnArrivalDateTime.toISOString().split('T')[0],
+                    returnArrivalDateTime.toTimeString().split(' ')[0]
+                );
+            }
+
+            // Cập nhật thông tin hành khách
+            const passengerList = document.getElementById('passenger-list');
+            passengerList.innerHTML = '';
+
+            customerData.forEach((passenger, index) => {
+                const passengerDiv = document.createElement('div');
+                passengerDiv.innerHTML = `
+                    <p><strong>Hành khách ${index + 1}:</strong> ${passenger.fullName}</p>
+                    <p><strong>Ngày sinh:</strong> ${new Date(passenger.birthDate).toLocaleDateString('vi-VN')}</p>
+                `;
+                passengerList.appendChild(passengerDiv);
+            });
+        }
+
+        // Chuyển đổi giữa các tab thanh toán
+        const tabs = document.querySelectorAll('.payment-tab');
+        const tabContents = document.querySelectorAll('.tab-content');
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => content.classList.remove('active'));
+
+                tab.classList.add('active');
+                const tabId = tab.getAttribute('data-tab');
+                document.getElementById(`${tabId}-content`).classList.add('active');
+
+                // Xóa thông báo lỗi khi chuyển tab
+                clearErrors();
+            });
+        });
+
+        // Chọn phương thức thanh toán (thẻ)
+        const paymentMethods = document.querySelectorAll('.payment-method');
+
+        paymentMethods.forEach(method => {
+            method.addEventListener('click', () => {
+                paymentMethods.forEach(m => m.classList.remove('active'));
+                method.classList.add('active');
+            });
+        });
+
+        // Xử lý nút thanh toán
+        const payButton = document.getElementById('pay-button');
+        const bankingPayButton = document.getElementById('banking-pay-button');
+        const successMessage = document.getElementById('success-message');
+
+        // Định dạng số thẻ khi nhập
+        const cardNumberInput = document.getElementById('cardnumber');
+
+        cardNumberInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 16) value = value.slice(0, 16);
+
+            let formattedValue = '';
+            for (let i = 0; i < value.length; i++) {
+                if (i > 0 && i % 4 === 0) {
+                    formattedValue += ' ';
+                }
+                formattedValue += value[i];
+            }
+
+            e.target.value = formattedValue;
+
+            // Xóa lỗi khi người dùng nhập
+            clearFieldError('cardnumber-group');
+        });
+
+        // Định dạng ngày hết hạn
+        const expiryInput = document.getElementById('expiry');
+
+        expiryInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 4) value = value.slice(0, 4);
+
+            if (value.length > 2) {
+                value = value.slice(0, 2) + '/' + value.slice(2);
+            }
+
+            e.target.value = value;
+
+            // Xóa lỗi khi người dùng nhập
+            clearFieldError('expiry-group');
+        });
+
+        // Định dạng CVV
+        const cvvInput = document.getElementById('cvv');
+
+        cvvInput.addEventListener('input', (e) => {
+            let value = e.target.value.replace(/\D/g, '');
+            if (value.length > 3) value = value.slice(0, 3);
+            e.target.value = value;
+
+            // Xóa lỗi khi người dùng nhập
+            clearFieldError('cvv-group');
+        });
+
+        // Xóa lỗi cho các trường khác
+        document.getElementById('cardholder').addEventListener('input', () => clearFieldError('cardholder-group'));
+        document.getElementById('bank').addEventListener('change', () => clearFieldError('bank-group'));
+        document.getElementById('account').addEventListener('input', () => clearFieldError('account-group'));
+        document.getElementById('name').addEventListener('input', () => clearFieldError('name-group'));
+
+        // Hàm xóa lỗi cho trường cụ thể
+        function clearFieldError(groupId) {
+            const group = document.getElementById(groupId);
+            if (group) {
+                group.classList.remove('error');
+            }
+        }
+
+        // Hàm xóa tất cả lỗi
+        function clearErrors() {
+            const errorMessages = document.querySelectorAll('.error-message');
+            errorMessages.forEach(msg => {
+                msg.style.display = 'none';
+                msg.textContent = '';
+            });
+
+            const errorGroups = document.querySelectorAll('.form-group.error');
+            errorGroups.forEach(group => group.classList.remove('error'));
+        }
+
+        // Hàm kiểm tra thông tin thẻ tín dụng
+        function validateCardForm() {
+            const cardholder = document.getElementById('cardholder').value.trim();
+            const cardnumber = document.getElementById('cardnumber').value.replace(/\s/g, '');
+            const expiry = document.getElementById('expiry').value.trim();
+            const cvv = document.getElementById('cvv').value.trim();
+
+            let isValid = true;
+            let errors = [];
+
+            // Kiểm tra tên chủ thẻ
+            if (!cardholder) {
+                document.getElementById('cardholder-group').classList.add('error');
+                errors.push('Vui lòng nhập tên chủ thẻ');
+                isValid = false;
+            }
+
+            // Kiểm tra số thẻ
+            if (!cardnumber || cardnumber.length < 13) {
+                document.getElementById('cardnumber-group').classList.add('error');
+                errors.push('Vui lòng nhập số thẻ hợp lệ (13-16 số)');
+                isValid = false;
+            }
+
+            // Kiểm tra ngày hết hạn
+            if (!expiry || !/^\d{2}\/\d{2}$/.test(expiry)) {
+                document.getElementById('expiry-group').classList.add('error');
+                errors.push('Vui lòng nhập ngày hết hạn theo định dạng MM/YY');
+                isValid = false;
+            } else {
+                const [month, year] = expiry.split('/');
+                const currentDate = new Date();
+                const currentYear = currentDate.getFullYear() % 100;
+                const currentMonth = currentDate.getMonth() + 1;
+
+                if (parseInt(month) < 1 || parseInt(month) > 12) {
+                    document.getElementById('expiry-group').classList.add('error');
+                    errors.push('Tháng không hợp lệ (01-12)');
+                    isValid = false;
+                } else if (parseInt(year) < currentYear || (parseInt(year) === currentYear && parseInt(month) < currentMonth)) {
+                    document.getElementById('expiry-group').classList.add('error');
+                    errors.push('Thẻ đã hết hạn');
+                    isValid = false;
+                }
+            }
+
+            // Kiểm tra CVV
+            if (!cvv || cvv.length < 3) {
+                document.getElementById('cvv-group').classList.add('error');
+                errors.push('Vui lòng nhập mã CVV (3 số)');
+                isValid = false;
+            }
+
+            // Hiển thị lỗi
+            const errorMessage = document.getElementById('card-error-message');
+            if (!isValid) {
+                errorMessage.textContent = errors.join('. ');
+                errorMessage.style.display = 'block';
+            }
+
+            return isValid;
+        }
+
+        // Hàm kiểm tra thông tin Internet Banking
+        function validateBankingForm() {
+            const bank = document.getElementById('bank').value;
+            const account = document.getElementById('account').value.trim();
+            const name = document.getElementById('name').value.trim();
+
+            let isValid = true;
+            let errors = [];
+
+            // Kiểm tra ngân hàng
+            if (!bank) {
+                document.getElementById('bank-group').classList.add('error');
+                errors.push('Vui lòng chọn ngân hàng');
+                isValid = false;
+            }
+
+            // Kiểm tra số tài khoản
+            if (!account) {
+                document.getElementById('account-group').classList.add('error');
+                errors.push('Vui lòng nhập số tài khoản');
+                isValid = false;
+            } else if (!/^\d{8,20}$/.test(account)) {
+                document.getElementById('account-group').classList.add('error');
+                errors.push('Số tài khoản phải là 8-20 chữ số');
+                isValid = false;
+            }
+
+            // Kiểm tra tên chủ tài khoản
+            if (!name) {
+                document.getElementById('name-group').classList.add('error');
+                errors.push('Vui lòng nhập tên chủ tài khoản');
+                isValid = false;
+            }
+
+            // Hiển thị lỗi
+            const errorMessage = document.getElementById('banking-error-message');
+            if (!isValid) {
+                errorMessage.textContent = errors.join('. ');
+                errorMessage.style.display = 'block';
+            }
+
+            return isValid;
+        }
+
+        // Xử lý nút thanh toán thẻ tín dụng
+        payButton.addEventListener('click', function () {
+            clearErrors();
+
+            if (!validateCardForm()) {
+                return;
+            }
+
+            processPayment(payButton, 'Thanh Toán');
+        });
+
+        // Xử lý nút thanh toán Internet Banking
+        bankingPayButton.addEventListener('click', function () {
+            clearErrors();
+
+            if (!validateBankingForm()) {
+                return;
+            }
+
+            processPayment(bankingPayButton, 'Chuyển Đến Cổng Thanh Toán');
+        });
+        // Hàm hiển thị thông báo thành công tự tắt
+        function showSuccessToast(message) {
+            const toast = document.createElement('div');
+            toast.className = 'success-toast';
+            toast.textContent = message;
+
+            document.body.appendChild(toast);
+
+            // Hiển thị
+            setTimeout(() => {
+                toast.classList.add('show');
+            }, 100);
+
+            // Tự động tắt sau 2 giây
+            setTimeout(() => {
+                toast.classList.remove('show');
+                setTimeout(() => {
+                    if (toast.parentNode) {
+                        toast.parentNode.removeChild(toast);
+                    }
+                }, 300);
+            }, 2000);
+        }
+        function processPayment(button, originalText) {
+            // Mô phỏng quá trình thanh toán
+            button.disabled = true;
+            button.textContent = 'Đang xử lý...';
+
+            setTimeout(() => {
+                successMessage.style.display = 'block';
+                button.textContent = 'Đã Thanh Toán';
+
+                // Cuộn đến thông báo thành công
+                successMessage.scrollIntoView({ behavior: 'smooth' });
+
+                // Tự động ẩn thông báo sau 2 giây
+                setTimeout(() => {
+                    successMessage.style.display = 'none';
+                }, 2000);
+
+            }, 2000);
+        }
+
+        function createTicketSession() {
+            const customerData = JSON.parse(sessionStorage.getItem('customerData')) || [];
+            const customerSelectedFlight = JSON.parse(sessionStorage.getItem('customerSelectedFlight')) || {};
+            const seatOfPeopleDeparture = JSON.parse(sessionStorage.getItem('SeatOfPeopleDeparture')) || [];
+            const seatOfPeopleReturn = JSON.parse(sessionStorage.getItem('SeatOfPeopleReturn')) || [];
+            const baggageDeparture = JSON.parse(sessionStorage.getItem('BaggageListDeparture')) || [];
+            const baggageReturn = JSON.parse(sessionStorage.getItem('BaggageListReturn')) || [];
+            const priceListPerPerson = JSON.parse(sessionStorage.getItem('PriceListPerPerson')) || [];
+
+            const ticketData = {
+                departureFlight: customerSelectedFlight.departureFlightASeat || null,
+                returnFlight: customerSelectedFlight.returnFlightASeat || null,
+                listCustomer: customerData,
+                listDepartureSeat: seatOfPeopleDeparture,
+                listReturnSeat: seatOfPeopleReturn,
+                listBaggageDeparture: baggageDeparture,
+                listBaggageReturn: baggageReturn,
+                listPrice: priceListPerPerson
+            };
+
+            // Lưu vào sessionStorage
+            sessionStorage.setItem('Ticket', JSON.stringify(ticketData));
+
+            console.log('Ticket session created:', ticketData);
+        }
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,276 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-image: url("BackGroundIMG.png");
+    display: grid;
+    grid-template-rows: 15% 85%;
+    height: 100vh;
+    border-radius: 30px;
+}
+
+body>div {}
+
+#Menu {
+    display: grid;
+    grid-template-columns: 30% 70%;
+    background-color: rgba(238, 163, 172, 0.2);
+}
+
+
+#Content {
+    overflow-y: auto;
+    height: 500vh;
+}
+
+.Menu_Right {
+    display: grid;
+    grid-template-rows: 50% 50%;
+}
+
+.Menu_Left {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Logo {
+    height: 100px;
+    width: 222px;
+    background-image: url("BlurLogo.png");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    user-select: none;
+    outline: none;
+    cursor: pointer;
+}
+
+.Option_Top {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    align-items: center;
+
+}
+
+.Option_Top>* {
+    padding: 5px;
+    margin: 5px 20px;
+    cursor: pointer;
+    /* border: solid black 1px; */
+    border-radius: 10px;
+}
+
+.Option_Top>div:hover {
+    background-color: aquamarine;
+}
+
+.Option_Botton {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    /* align-items: center; */
+    font-size: 15px;
+}
+
+.Option_Botton>* {
+    box-sizing: border-box;
+    font-size: 15px;
+    overflow: hidden;
+    margin: 5px 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px;
+    /* border: 1px solid white; */
+    border-radius: 20px;
+    transition: all 0.4s ease;
+}
+
+.Option_Botton>div:hover {
+    background-color: aqua;
+}
+
+#Content {
+    display: grid;
+    grid-template-rows: 25% 25% 25% 25%;
+}
+
+#Content>div {
+    min-height: 125vh;
+}
+
+.HomeContent {
+    display: grid;
+    grid-template-rows: 75% 25%;
+}
+
+.HomeContent_Top {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.Find_Flights_Form {
+    min-height: 440px;
+    min-width: 340px;
+    background-color: rgba(222, 81, 87, 0.7);
+    position: relative;
+    bottom: 50px;
+    display: grid;
+    grid-template-rows: repeat(6, 1fr);
+    font-size: 20px;
+    text-align: center;
+    border-radius: 20px;
+    position: relative;
+}
+
+.Radio_Form {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.Radio_Form>label>input {
+    accent-color: green;
+}
+
+.Start_Infor {
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    background-color: white;
+    margin: 15px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.Start_Infor>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.iconF {
+    background-image: url("iconMayBay.webp");
+    background-position: center;
+    background-size: cover;
+}
+
+.Text_From {
+    /* position: relative; */
+    border-right: solid black 0.5px;
+}
+
+.Text_From>input[type="text"] {
+    font-size: 14px;
+    height: 34px;
+    border: none;
+    outline: none;
+    box-shadow: none;
+}
+
+.Text_Departur_D {
+    user-select: none;
+    outline: none;
+}
+
+.List_Location {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    height: 300px;
+    width: 100%;
+    top: 108%;
+    left: 0;
+    border-radius: 10px;
+    background-color: white;
+    overflow: hidden;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.List_Location::-webkit-scrollbar {
+    width: 3px;
+    /* Độ rộng của thanh cuộn dọc */
+    height: 6px;
+    /* Độ cao của thanh cuộn ngang (nếu có) */
+}
+
+.List_Location::-webkit-scrollbar-thumb {
+    background-color: #888;
+    /* Màu của thanh cuộn */
+    border-radius: 10px;
+    /* Bo tròn thanh cuộn */
+}
+
+.List_Location::-webkit-scrollbar-thumb:hover {
+    background-color: #555;
+    /* Màu khi hover vào thanh cuộn */
+}
+
+.List_Location::-webkit-scrollbar-track {
+    background-color: #24ef24;
+    /* Màu nền của track (đường dẫn thanh cuộn) */
+    border-radius: 10px;
+    /* Bo tròn track */
+}
+
+.location-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 40px;
+    cursor: pointer;
+    font-size: 16px;
+    border-bottom: solid black 0.2px;
+}
+
+.End_Infor {
+    display: grid;
+    grid-template-columns: 15% 60% 25%;
+    background-color: white;
+    margin: 15px;
+    border-radius: 10px;
+    position: relative;
+}
+
+.End_Infor>div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Text_To {
+    border-right: solid black 0.5px;
+}
+
+.List_Location_arrive {
+    display: none;
+    position: absolute;
+    z-index: 10;
+    height: 300px;
+    width: 100%;
+    top: 108%;
+    left: 0;
+    border-radius: 10px;
+    background-color: white;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+.Text_Return_Day {
+    user-select: none;
+    outline: none;
+}
+
+.Button_Find {
+    width: 200px;
+    height: 50px;
+    border: coral;
+    border-radius: 30px;
+}

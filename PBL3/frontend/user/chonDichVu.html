@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vietnam Airlines - Đặt vé máy bay</title>
+    <link rel="stylesheet" href="css/chonDichVu.css">
+    <script src="js/include.js"></script>
+</head>
+
+<body>
+    <div data-include="share/header.html"></div>
+    <div class="container">
+        <div class="section">
+            <div class="section-title">Chuyến bay</div>
+            <!-- Hiện ra điểm đầu,đến, ngày đi , giờ đi, ngày về , giờ về nếu có  -->
+            <div class="SelectedFlightInfo"></div>
+        </div>
+        <div class="section" id="section-customers">
+            <div class="section-title">Hành khách</div>
+            <div class="customerInfo"></div>
+            <div class="section-title">Thông tin liên hệ</div>
+            <div class="bookingInfo"></div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Hành lý</div>
+            <div class="luggage-info">
+                <div class="luggage-summary">
+                    <div>Mua thêm 1 kiện (trọng lượng tối đa 40kg) chỉ 400,000 VND</div>
+                    <div style="margin-top: 10px;">1 kiện xách tay, 1 kiện ký gửi</div>
+                </div>
+                <button class="btn showBaggageInfo">Thêm</button>
+
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Chọn chỗ ngồi</div>
+            <div class="add-service">
+                <div class="service-content">
+                    <div class="service-description">Chọn chỗ ngồi và thoải mái tận hưởng trọn vẹn hành trình.</div>
+                    <div class="service-description">0₫ VND</div>
+                    <button class="btn btn_showSeat ">CHỌN CHỖ</button>
+                </div>
+                <!-- <img src="" alt=" Chọn chỗ ngồi" class="service-image"> -->
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="price-info">
+                <div class="price-title">Tổng số tiền:</div>
+                <div class="price-value">0 VND</div>
+            </div>
+        </div>
+
+        <div style="text-align: right; margin-top: 20px; margin-bottom: 20px;">
+            <button class="btn btn_continue">TIẾP TỤC</button>
+        </div>
+
+    </div>
+    <div data-include="share/footer.html">
+    </div>
+    <!--                           -->
+    <div id="popup">
+        <div class="showName">
+            <div class="CardName"></div>
+        </div>
+        <div class="tabDR"></div>
+        <div class="showBaggageToSelect">
+            <div class="BaggageCard BaggageCard_1">
+                <div class="BaggageTitle">Gói thường</div>
+                <div>🧳 10kg hành lí</div>
+                <div>Giá : Miễn Phí</div>
+            </div>
+            <div class="BaggageCard BaggageCard_2">
+                <div class="BaggageTitle">Gói phổ thông</div>
+                <div>
+                    <p>🧳 20kg hành</p>
+                </div>
+                <div>Giá : 300.000đ</div>
+            </div>
+            <div class="BaggageCard BaggageCard_3">
+                <div class="BaggageTitle">Gói VIP</div>
+                <div>
+                    <p>🧳 30kg hành lí</p>
+                </div>
+                <div>Giá : 400.000đ</div>
+            </div>
+        </div>
+        <div class="submitBaggage">
+            <button type="submit" id="closeShowPopup">Đóng</button>
+        </div>
+    </div>
+
+    <!--       bảng chọn ghế              -->
+    <div id="showSeatOfFlightTable">
+        <div class="SeatTableTitle">Chọn ví trí yêu thích</div>
+        <div class="flight-direction-tabs" style="display: flex; justify-content: center; gap: 10px; margin: 10px 0;">
+            <button class="direction-tab active" data-direction="departure">Chiều đi</button>
+            <button class="direction-tab" data-direction="return" style="display: none;">Chiều về</button>
+        </div>
+        <div class="ShowSeatStatus">
+            <div>
+                <div class="SeatSquare SeatSquare_Common no-hover"></div>
+                <div>Ghế thường</div>
+            </div>
+            <div>
+                <div class="SeatSquare SeatSquare_VIP no-hover"></div>
+                <div>Ghế VIP</div>
+            </div>
+            <div>
+                <div class="SeatSquare SeatSquare_Choosen no-hover"></div>
+                <div>Ghế Đã chọn</div>
+            </div>
+            <div>
+                <div class="SeatSquare SeatSquare_Choose no-hover"></div>
+                <div>Ghế Đang Chọn </div>
+            </div>
+        </div>
+        <div class="SelectSeatForPeople">
+            <div class="NameOfCustomer"></div>
+        </div>
+        <div class="SeatTable">
+            <div>Cửa vào</div>
+            <div></div>
+            <div></div>
+            <div>Cửa vào</div>
+        </div>
+        <div class="SeatTable_Tool">
+            <button class="btn btn_closeSeatTable">Đóng</button>
+            <div></div>
+            <div></div>
+            <button class="btn btn_submitSeatTable">Xác nhận</button>
+        </div>
+    </div>
+    <!-- -->
+    <script type="module" src="js/DOM/chonDichVuV2.js"></script>
+</body>
+
+</html>
+<!-- Tải danh sách flight seat vào (Seat của FLight)
+từ trái sang phải : 1 2 3 4  
+Nếu ghế nào book thì để màu xám, còn ghế nào chưa thì để để màu xanh 
+Nếu click thì thay đổi trạng thái ghế  -->

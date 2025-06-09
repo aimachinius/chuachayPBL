@@ -1,0 +1,9 @@
+3-layer 
+-Đối tượng -> biểu diện đối tượng 
+-Service -> kết nối với lớp Data Acess 
+    + xử lí các thao tác CRUD 
+    + kết hợp với cache
+    -Quản lí luồng (thêm) -> quản lí các luồng hoạt động với 
+    dữ liệu khi thao tác trên cache và database 
+-Data Acess -> truy cập Database 
+    + chủ yếu truy vấn dữ liệu 

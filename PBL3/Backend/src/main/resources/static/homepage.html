@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vé Máy Bay Giá Rẻ</title>
+    <link rel="stylesheet" href="homepage.css">
+</head>
+
+<body>
+    <div id="Menu">
+
+        <div class="Menu_Left">
+            <div class="Logo">
+
+            </div>
+        </div>
+
+        <div class="Menu_Right">
+            <div class="Option_Top">
+
+                <div class="Help">Hỗ trợ</div>
+                <div class="Sign_in/up">Đăng Kí/Đăng Nhập</div>
+                <div class="Language">Ngôn Ngữ</div>
+            </div>
+            <div class="Option_Botton">
+                <div class="My_Flight">CHUYẾN BAY CỦA TÔI</div>
+                <div class="Flight_Service">DỊCH VỤ CHUYẾN BAY</div>
+                <div class="Online_Check_In">ONLINE CHECK-IN</div>
+                <div class="Visa">VISA</div>
+                <div class="Event">SỰ KIỆN</div>
+                <div class="Other_Service">DỊCH VỤ KHÁC</div>
+            </div>
+        </div>
+    </div>
+    <div id="Content">
+        <div class="HomeContent">
+            <div class=" HomeContent_Top">
+                <div class="ThongTinChuyenBay" style="display: block;"></div>
+                <form class="Find_Flights_Form">
+                    <div class="Title_Form">Hãy Nhập Chuyến Bạn Muốn</div>
+                    <div class="Radio_Form">
+                        <label>
+                            <input type="radio" name="flight_type" value="male">Một Chiều
+                        </label>
+                        <label>
+                            <input type="radio" name="flight_type" value="female" checked>Khứ Hồi
+                        </label>
+                    </div>
+                    <div class="Start_Infor">
+                        <div class="iconF"></div>
+                        <div class="Text_From" onclick="Show_list_location()"> Điểm khởi hành</div>
+                        <div class="Text_Departure_D"></div>
+                        <div class="List_Location"></div>
+                    </div>
+                    <div class="End_Infor">
+                        <div class="iconFR"></div>
+                        <div class="Text_To" onclick="Show_list_location_arrive()"> Điểm đến</div>
+                        <div class="Text_Return_Day"></div>
+                        <div class="List_Location_arrive"></div>
+                    </div>
+                    <div class="Customer_Count"></div>
+                    <div class="Find_Flights_Button">
+                        <input type="button" name="" value="Tìm chuyến bay" id="" class="Button_Find"
+                            onclick="LayThongTinChuyenBay()">
+                    </div>
+                </form>
+            </div>
+            <div class="Calendar"></div>
+
+        </div>
+        <div class="HomeContent_Botton"></div>
+    </div>
+    <div class="HomeContent2">2</div>
+    <div class="HomeContent3">3</div>
+    <div class="HomeContent4">4</div>
+    </div>
+    <script src="homepage.js"></script>
+
+</body>
+
+</html>
